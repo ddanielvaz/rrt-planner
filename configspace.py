@@ -6,7 +6,7 @@ from numpy.random import rand, uniform
 
 LINEAR_TOLERANCE = 10.0
 ANGULAR_TOLERANCE = 0.26
-QGOAL_BIAS = 1
+QGOAL_BIAS = 0.4
 
 class ConfigSpace(object):
     def __init__(self, map_file, car, qgoal):

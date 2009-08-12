@@ -12,10 +12,10 @@ class RRT(object):
         self.qgoal = qgoal
         self.cspace = cspace
         self.n = n
-        self.path = None
-        self.plot_points = []
 
     def build_rrt(self):
+        self.path = None
+        self.plot_points = []
         debug("build_rrt started")
         count = 0
         g = pygraph.graph()
