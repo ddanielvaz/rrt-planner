@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from time import strftime
 
 INTEGRATION_TIME = 1.0
