@@ -8,7 +8,6 @@ from utils import debug, INTEGRATION_TIME
 
 MAX_TREE_NODES = 600
 N_ATTEMPT = 5
-#c.read()
 Qinit = (46.875, 453.125, 0)
 Qgoal = (200, 400.125, 0)
 my_car = Car(20, 30)
@@ -40,5 +39,5 @@ for i in range(N_ATTEMPT):
         edges = [(rrt.path[i], rrt.path[i+1]) for i in range(len(rrt.path)-1)]
         for edge in edges:
             v,w = tree.edge_attributes(*edge)[0][1]
-            p2d.locomotion(v*0.032, -w*0.032, INTEGRATION_TIME)
+            p2d.locomotion(v*0.032/5.0, -w/5.0, INTEGRATION_TIME)
         break
