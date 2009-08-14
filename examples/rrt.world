@@ -41,7 +41,17 @@ pioneer2dx
 (		  
   # can refer to the robot by this name
   name "r0"
-  pose [ -6.5 -6.5 0 0 ] 
+  #Qinit = (46.875, 453.125, 0)
+  #pose [ -6.5 -6.5 0 0 ] 
+
+  # Qinit = (100, 450, 0.0)
+  pose [ -4.8 -6.4 0 0 ]
+
+  # Qinit = (20, 480, 0.0)
+  #pose [ -7.36 -7.36 0 0 ]
+
+  # Qinit = (425, 195, 0.0)
+  #pose [ 5.6 1.76 0 0 ]
 
   sicklaser()
 )

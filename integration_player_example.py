@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import numpy
+
 from configspace import ConfigSpace
 from gui import Drawer
 from modelcar import Car
@@ -6,14 +8,14 @@ from proxies import Position2dProxy, PlayerClient, Graphics2dProxy
 from rrt import RRT
 from utils import debug, INTEGRATION_TIME
 
-MAX_TREE_NODES = 600
-N_ATTEMPT = 5
-Qinit = (46.875, 453.125, 0)
-Qgoal = (200, 400.125, 0)
+MAX_TREE_NODES = 1200
+N_ATTEMPT = 7
+#Qinit = (46.875, 453.125, 0)
+#Qgoal = (200, 400.125, 0)
 my_car = Car(20, 30)
 #Rand 1
-#Qinit = (100, 450, 0.0)
-#Qgoal = (400, 100, 0.0)
+Qinit = (100, 450, 0.0)
+Qgoal = (400, 100, 0.0)
 #Rand 2
 #Qinit = (20, 480, 0.0)
 #Qgoal = (480, 350, 0.0)
@@ -23,6 +25,7 @@ my_car = Car(20, 30)
 space = ConfigSpace("./cave.png", my_car, Qgoal)
 rrt = RRT(space, Qinit, Qgoal, MAX_TREE_NODES)
 for i in range(N_ATTEMPT):
+    numpy.random.seed()
     debug("ATTEMPT %d." % (i+1))
     tree = rrt.build_rrt()
     if rrt.path:
