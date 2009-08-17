@@ -4,7 +4,8 @@ import numpy
 from configspace import ConfigSpace
 from gui import Drawer
 from modelcar import Car
-from proxies import Position2dProxy, PlayerClient, Graphics2dProxy
+from proxies import RobotPlayer, PlayerClient, Position2dProxy, LaserProxy, \
+    Graphics2dProxy
 from rrt import RRT
 from utils import debug, INTEGRATION_TIME
 
@@ -32,6 +33,8 @@ for i in range(N_ATTEMPT):
         c = PlayerClient()
         c.connect()
         p2d = Position2dProxy(c)
+        lp = LaserProxy(c)
+        r = RobotPlayer(c, p2d, lp)
         g = Graphics2dProxy(c)
         g.setcolor((0,255,0))
         g.clear()
@@ -41,6 +44,8 @@ for i in range(N_ATTEMPT):
         g.draw_points(p, len(p))
         edges = [(rrt.path[i], rrt.path[i+1]) for i in range(len(rrt.path)-1)]
         for edge in edges:
+            c.read()
             v,w = tree.edge_attributes(*edge)[0][1]
-            p2d.locomotion(v*0.032/5.0, -w/5.0, INTEGRATION_TIME)
+            n = edge[0]
+            r.locomotion(n, v*0.032/5.0, -w/5.0, INTEGRATION_TIME)
         break
