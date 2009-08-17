@@ -1,5 +1,0 @@
-#summary This is just a wiki page test
-#labels page test
-= Testing =
-
-Aloha!
