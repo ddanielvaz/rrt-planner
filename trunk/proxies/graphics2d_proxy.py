@@ -11,12 +11,6 @@ class Graphics2dProxy(playerc_graphics2d):
         color.red, color.green, color.blue = rgb
         self.color = color
 
-    def png_to_map(self, x, y):
-        scale = 16.0/500.0
-        xmap = x * scale - 8.0
-        ymap = 8.0 - y * scale
-        return xmap, ymap
-
 if __name__ == "__main__":
     import numpy
     from player_client import PlayerClient

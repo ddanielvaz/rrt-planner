@@ -19,7 +19,6 @@ window
 (
   size [ 635.000 666.000 ] # in pixels
   scale 37.481
-#  scale 10.0
   # pixels per meter
   center [ -0.019  -0.282 ]
   rotate [ 0  0 ]
@@ -42,10 +41,10 @@ pioneer2dx
   # can refer to the robot by this name
   name "r0"
   #Qinit = (46.875, 453.125, 0)
-  #pose [ -6.5 -6.5 0 0 ] 
+  pose [ -6.5 -6.5 0 0 ] 
 
   # Qinit = (100, 450, 0.0)
-  pose [ -4.8 -6.4 0 0 ]
+  #pose [ -4.8 -6.4 0 0 ]
 
   # Qinit = (20, 480, 0.0)
   #pose [ -7.36 -7.36 0 0 ]

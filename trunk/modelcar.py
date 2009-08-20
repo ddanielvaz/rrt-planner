@@ -9,13 +9,14 @@ class Car(object):
         self.turn_constraint = radians(phi)
         self.rmin = self.l / tan(self.turn_constraint)
 
-    def new_state(self, u, state, delta_t):
+    def state_estimator(self, state, u, dt):
         """Esta função descreve a posição do carro após delta_t segundos sobre a
         influência de uma ação de controle 'u'."""
-        dx = u.speed * cos(state.teta) * delta_t
-        dy = u.speed * sin(state.teta) * delta_t
-        dteta = u.turn_rate * delta_t
-        return dx,dy,dteta
+        v, w = u
+        dx = v * cos(state[2]) * dt
+        dy = v * sin(state[2]) * dt
+        dteta = w * dt
+        return dx, dy, dteta
 
     def integrate(self, state, u, cspace, qgoal):
         count = 0.0
