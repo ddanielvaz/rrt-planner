@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 import pygraph
 
-from utils import debug
+from utils import biased_sampling, debug, is_near_qgoal, select_nearest_node, dist
 
-INPUTS = ([(10, 0.0), (10, 0.2886), (10, 0.1443), (10, -0.2886), (10, -0.1443),
-          (-10, -0.0), (-10, -0.2886), (-10, -0.1443), (-10, 0.2886), (-10, 0.1443)])
+INPUTS = ([(1, 0.0), (1, 0.2886), (1, 0.1443), (1, -0.2886), (1, -0.1443),
+          (-1, -0.0), (-1, -0.2886), (-1, -0.1443), (-1, 0.2886), (-1, 0.1443)])
 
 class RRT(object):
-    def __init__(self, cspace, qinit, qgoal, n):
+    def __init__(self, cspace, car, qinit, qgoal, qgoal_bias, n):
         self.qinit = qinit
         self.qgoal = qgoal
         self.cspace = cspace
+        self.car = car
+        self.bias = qgoal_bias
         self.n = n
 
     def build_rrt(self):
@@ -21,11 +23,11 @@ class RRT(object):
         g = pygraph.graph()
         g.add_node(self.qinit)
         while count < self.n:
-            qrand = self.cspace.get_bias_random_configuration()
+            qrand = biased_sampling(self.cspace.bbox, self.bias, self.qgoal)
             q = self.extend_RRT(g, qrand)
             if q:
                 count = count + 1
-                if self.cspace.is_near_qgoal(q, self.qgoal):
+                if is_near_qgoal(q, self.qgoal):
                     debug("TOLERANCE REACHED")
                     self.nearest_qgoal_node = q
                     self.build_path(g)
@@ -36,15 +38,17 @@ class RRT(object):
         return g
 
     def extend_RRT(self, t, qrand):
-        qnear = self.cspace.select_nearest_node(t, qrand)
+        qnear = select_nearest_node(t, qrand)
         qchoosed, control, points = self.select_best_input(qnear, qrand,t)
-        self.plot_points.append(points)
-        if not t.has_node(qchoosed):
+        debug(qchoosed)
+        if qchoosed:
+        #if not t.has_node(qchoosed):
+            self.plot_points.append(points)
             t.add_node(qchoosed)
             t.add_edge(qnear, qchoosed)
             t.add_edge_attribute(qnear, qchoosed, ('control', control))
-        else:
-            return None
+        #else:
+        #    return None
         return qchoosed
 
     def select_best_input(self, qnear, qrand,t):
@@ -53,10 +57,10 @@ class RRT(object):
         points = None
         dmin = float('inf')
         for control in INPUTS:
-            temp = self.cspace.car.integrate(qnear, control, self.cspace, self.qgoal)
+            temp = self.car.integrate(qnear, control, self.cspace, self.qgoal)
             if temp:
                 qnew = temp[:-1]
-                d = self.cspace.dist(qnew, qrand)
+                d = dist(qnew, qrand)
                 if d < dmin:
                     dmin = d
                     best_control = control

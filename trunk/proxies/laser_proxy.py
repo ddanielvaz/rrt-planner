@@ -7,6 +7,7 @@ class LaserProxy(playerc_laser):
     def __init__(self, client, pid=0):
         super(LaserProxy, self).__init__(client, pid)
         super(LaserProxy, self).subscribe(PLAYERC_OPEN_MODE)
+        self.get_geom()
 
     def get_measurement(self):
         #angles = [radians(i/2.0) for i in range(-180, 181)]

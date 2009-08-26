@@ -5,8 +5,9 @@ from modelcar import Car
 from gui import Drawer
 from utils import debug
 
-MAX_TREE_NODES = 800
+MAX_TREE_NODES = 1600
 N_ATTEMPT = 10
+QGOAL_BIAS = 1
 
 my_car = Car(20, 30)
 #Rand 1
@@ -14,12 +15,13 @@ my_car = Car(20, 30)
 #Qgoal = (400, 100, 0.0)
 #Rand 2
 Qinit = (20, 480, 0.0)
-Qgoal = (480, 350, 0.0)
+Qgoal = (100, 480, 0.0)
+#Qgoal = (480, 350, 0.0)
 #Rand 3
 #Qinit = (425, 195, 0.0)
 #Qgoal = (125, 90, 0.0)
-space = ConfigSpace("./cave.png", my_car, Qgoal)
-rrt = RRT(space, Qinit, Qgoal, MAX_TREE_NODES)
+space = ConfigSpace("./examples/bitmaps/cave.png", Qgoal)
+rrt = RRT(space, my_car, Qinit, Qgoal, QGOAL_BIAS, MAX_TREE_NODES)
 for i in range(N_ATTEMPT):
     debug("ATTEMPT %d." % (i+1))
     tree = rrt.build_rrt()

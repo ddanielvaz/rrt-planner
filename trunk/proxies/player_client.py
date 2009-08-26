@@ -7,10 +7,10 @@ class PlayerClient(playerc_client):
         super(PlayerClient, self).__init__(None, host, port)
 
     def connect(self):
-        print "connecting"
         super(PlayerClient, self).connect()
 
 if __name__ == "__main__":
     c = PlayerClient()
     c.connect()
+    print dir(c)
     c.disconnect()

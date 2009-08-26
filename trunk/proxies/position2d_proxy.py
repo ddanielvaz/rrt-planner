@@ -8,7 +8,6 @@ class Position2dProxy(playerc_position2d):
         super(Position2dProxy, self).__init__(client, pid)
         super(Position2dProxy, self).subscribe(PLAYERC_OPEN_MODE)
         super(Position2dProxy, self).get_geom()
-        self.enable(True)
         self.x = self.px
         self.y = self.py
         self.angle = self.pa
