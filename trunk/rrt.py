@@ -3,9 +3,9 @@ import pygraph
 
 from utils import biased_sampling, debug, is_near_qgoal, select_nearest_node, dist
 
-INPUTS = ([(1, 0.0), (1, 0.2886), (1, 0.1443), (1, -0.2886), (1, -0.1443),
-          (-1, -0.0), (-1, -0.2886), (-1, -0.1443), (-1, 0.2886), (-1, 0.1443)])
-
+#INPUTS = ([(1, 0.0), (1, 0.2886), (1, 0.1443), (1, -0.2886), (1, -0.1443)]
+#          (-1, -0.0), (-1, -0.2886), (-1, -0.1443), (-1, 0.2886), (-1, 0.1443)])
+INPUTS = [(1, 0.0), (1, 0.28867513459481287), (1, 0.14433756729740643), (1, -0.28867513459481287), (1, -0.14433756729740643), (0.5, 0.0), (0.5, 0.14433756729740643), (0.5, 0.072168783648703216), (0.5, -0.14433756729740643), (0.5, -0.072168783648703216)]
 class RRT(object):
     def __init__(self, cspace, car, qinit, qgoal, qgoal_bias, n):
         self.qinit = qinit
@@ -27,7 +27,7 @@ class RRT(object):
             q = self.extend_RRT(g, qrand)
             if q:
                 count = count + 1
-                if is_near_qgoal(q, self.qgoal):
+                if is_near_qgoal(q, self.qgoal, self.cspace.scale):
                     debug("TOLERANCE REACHED")
                     self.nearest_qgoal_node = q
                     self.build_path(g)
@@ -40,7 +40,7 @@ class RRT(object):
     def extend_RRT(self, t, qrand):
         qnear = select_nearest_node(t, qrand)
         qchoosed, control, points = self.select_best_input(qnear, qrand,t)
-        debug(qchoosed)
+        #debug(qchoosed)
         if qchoosed:
         #if not t.has_node(qchoosed):
             self.plot_points.append(points)

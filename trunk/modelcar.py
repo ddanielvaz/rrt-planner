@@ -26,18 +26,18 @@ class Car(object):
         x, y, teta = 0,0,0
         v = u[0]
         w = u[1]
-        points = [(x0, cspace.height - y0)]
-        while count <= INTEGRATION_TIME:
+        points = [(x0, y0)]
+        while count <= INTEGRATION_TIME * cspace.scale:
             x = x0 + v * cos(teta0) * DELTA_T
             y = y0 + v * sin(teta0) * DELTA_T
-            teta = teta0 + w * DELTA_T
+            teta = teta0 + w * DELTA_T / cspace.scale
             if teta > pi:
                 teta = teta - 2.0 * pi
             elif teta < -pi:
                 teta = teta + 2.0 * pi
             if cspace.is_configuration_in_colision((x, y, teta)):
                 return None
-            points.append((x, cspace.height - y))
+            points.append((x, y))
             x0 = x
             y0 = y
             teta0 = teta

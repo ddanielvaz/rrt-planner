@@ -6,9 +6,8 @@ from numpy.random import rand, uniform
 
 INTEGRATION_TIME = 1.0
 DELTA_T = 0.100
-#DELTA_T = 0.03125
-LINEAR_TOLERANCE = 0.5
-ANGULAR_TOLERANCE = 0.26
+LINEAR_TOLERANCE = 0.3
+ANGULAR_TOLERANCE = 3.14
 is_debug_active = True
 
 def debug(debug_str):
@@ -55,14 +54,14 @@ def get_random_config(lower_w, upper_w, lower_h, upper_h):
     teta = uniform(-pi, pi)
     return x, y, teta
 
-def is_near_qgoal(p, q):
+def is_near_qgoal(p, q, scale):
     dx2 = (p[0] - q[0]) ** 2
     dy2 = (p[1] - q[1]) ** 2
     da = p[2] - q[2]
     if da > 2 * pi:
         da = da - 2 * pi
     d = sqrt(dx2 + dy2)
-    if d < LINEAR_TOLERANCE and abs(da) < ANGULAR_TOLERANCE:
+    if d < LINEAR_TOLERANCE * scale and abs(da) < ANGULAR_TOLERANCE:
         return True
     else:
         return False

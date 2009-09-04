@@ -19,6 +19,7 @@ class MapProxy(playerc_map):
         for cell in self.cells:
             occ.append(ord(cell))
         self.occ = occ
+        self.scale = 1.0
 
     def map_to_png(self, pos):
         x, y, a = pos
@@ -42,3 +43,5 @@ if __name__ == "__main__":
     c.connect()
     m = MapProxy(c)
     print m.occ
+    print m.resolution
+    print m.scale
