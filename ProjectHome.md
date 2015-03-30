@@ -1,0 +1,3 @@
+Este projeto visa implementar um planejador de movimentos, para robôs não-holonômicos e realizar a integração desse planejador com o software Player/Stage - [Player/Stage](http://playerstage.sourceforge.net/). O planejador de movimentos aqui implementado é baseado no algoritmo Rapidly-exploring Random Tree - [RRT](http://en.wikipedia.org/wiki/Rapidly-exploring_random_tree).
+
+A idéia inicial do projeto é que a implementação seja capaz de resolver o problema de manobra para balisas [Parallel Parking](http://en.wikipedia.org/wiki/Parallel_parking).
